@@ -26,7 +26,7 @@ class paymentMethod(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     totalPrice = models.DecimalField(max_digits=10, decimal_places=2)
     isPaid = models.BooleanField(default=False)
-    PaidAt = models.DateTimeField(null=True, blank=True)
+    paidAt = models.DateTimeField(null=True, blank=True)
     xendit_invoice_id = models.CharField(max_length=255, null=True, blank=True)
     xendit_external_id = models.CharField(max_length=255, null=True, blank=True)
     xendit_status = models.CharField(max_length=50, null=True, blank=True)
@@ -38,7 +38,7 @@ class paymentMethod(models.Model):
         carts = cartUser.objects.filter(user=self.user)
         with transaction.atomic():
             for c in carts:
-                orderItem.objects.create(
+                OrderItem.objects.create(
                     product = c.product,
                     payment = self,
                     qty = c.qty,
