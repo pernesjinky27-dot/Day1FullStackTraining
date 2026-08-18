@@ -59,11 +59,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 class paymentMethodSerializer(serializers.ModelSerializer):
     # Your model uses PaidAt with a capital P.
-    # This exposes it to React as paidAt.
-    paidAt = serializers.DateTimeField(
-        source="PaidAt",
-        read_only=True,
-    )
+    paidAt = serializers.DateTimeField(read_only=True)
 
     items = serializers.SerializerMethodField()
     shipping = serializers.SerializerMethodField()
