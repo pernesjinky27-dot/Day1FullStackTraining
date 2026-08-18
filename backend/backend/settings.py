@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-drf+js)+1^*#ay^psxouidg0*p@(bh)g4jah3zkk^x+i^p)a8^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'full-stack-training-three.vercel.app',
+]
 
 
 # Application definition
@@ -61,7 +63,8 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = [    
-    'http://localhost:5173'
+    'http://localhost:5173',
+    'https://full-stack-training-three.vercel.app/'
     ]
 
 ROOT_URLCONF = 'backend.urls'
