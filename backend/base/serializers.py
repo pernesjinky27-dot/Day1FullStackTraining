@@ -37,6 +37,10 @@ class OrderItemSerializer(serializers.ModelSerializer):
         return obj.qty * obj.price
 
 class paymentMethodSerializer(serializers.ModelSerializer):
+     paidAt = serializers.DateTimeField(
+        source="PaidAt",
+        read_only=True
+    )
     items = serializers.SerializerMethodField()
     shipping = serializers.SerializerMethodField()
 
@@ -46,7 +50,7 @@ class paymentMethodSerializer(serializers.ModelSerializer):
         'xendit_invoice_id', 'xendit_external_id', 'xendit_status','items', 'shipping']
 
         def get_items(self,obj):
-            qs = obk.orderitem_set.select_related('product').all()
+            qs = obj.orderitem_set.select_related('product').all()
             return OrderItemSerializer(qs, many=True).data  
         
         def get_shipping(self, obj):

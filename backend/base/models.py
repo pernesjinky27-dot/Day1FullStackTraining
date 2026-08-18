@@ -46,7 +46,7 @@ class paymentMethod(models.Model):
                 )
             carts.delete()
             self.isPaid = True
-            self.paidAt = timezone.now()
+            self.PaidAt = timezone.now()
             self.save()
 
 
