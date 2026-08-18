@@ -20,7 +20,7 @@ const ProductList = () => {
 
   useEffect(() => {
     ProductData();
-  });
+  }, []);
 
   if (isLoading)
     return (
