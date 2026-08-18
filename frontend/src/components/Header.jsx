@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
-import React from "react";
-function Header() {
+import React, { useContext } from "react";
+import { FaShoppingCart, FaUser } from "react-icons/fa";
+import { AuthContext } from "../context/AuthProvider";
+
+const Header = () => {
+  const { isAuthenticated } = useContext(AuthContext);
+
   return (
     <header className="bg-white shadow-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
@@ -29,21 +34,36 @@ function Header() {
         </nav>
 
         {/* Buttons */}
-        <div className="flex gap-3">
-          <Link to="/register">
-            <button className="rounded border border-indigo-600 px-4 py-2 text-indigo-600 hover:bg-indigo-50">
-              Register
-            </button>
-          </Link>
-          <Link to="/login">
-            <button className="rounded bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700">
-              Sign In
-            </button>
-          </Link>
+        <div className="hidden items-center gap-3 md:flex">
+          {isAuthenticated ? (
+            <>
+              <Link to="/cart" className="text-xl">
+                <FaShoppingCart />
+              </Link>
+              <Link to="/profile" className="text-xl">
+                <FaUser />
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="rounded-full px-5 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-gray-100 hover:text-gray-950"
+              >
+                Sign in
+              </Link>
+
+              <Link
+                to="/register"
+                className="rounded-full bg-gray-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-gray-800"
+              >
+                Register
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </header>
   );
-}
-
+};
 export default Header;

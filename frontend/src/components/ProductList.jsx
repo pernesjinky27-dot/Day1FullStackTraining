@@ -1,93 +1,82 @@
-import { Link } from "react-router-dom";
-
-const products = [
-  {
-    id: 1,
-    name: "PRODUCT NAME",
-    brand: "CISCO",
-    price: "$2000",
-    image: "/images/cisco-switch.png",
-  },
-  {
-    id: 2,
-    name: "PRODUCT NAME",
-    brand: "CISCO",
-    price: "$2000",
-    image: "/images/cisco-switch.png",
-  },
-  {
-    id: 3,
-    name: "PRODUCT NAME",
-    brand: "CISCO",
-    price: "$2000",
-    image: "/images/cisco-switch.png",
-  },
-  {
-    id: 4,
-    name: "PRODUCT NAME",
-    brand: "CISCO",
-    price: "$2000",
-    image: "/images/cisco-switch.png",
-  },
-  {
-    id: 5,
-    name: "PRODUCT NAME",
-    brand: "CISCO",
-    price: "$2000",
-    image: "/images/cisco-switch.png",
-  },
-  {
-    id: 6,
-    name: "PRODUCT NAME",
-    brand: "CISCO",
-    price: "$2000",
-    image: "/images/cisco-switch.png",
-  },
-];
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { BASE_URL } from "../api/base";
+import  { Link } from "react-router-dom";
 
 const ProductList = () => {
+  const [products, setProducts] = useState([]);
+
+  const ProductData = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/api/products/`);
+      setProducts(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    ProductData();
+  });
+
   return (
-    <section className="py-16 px-6">
-      <h2 className="mb-12 text-center text-3xl font-bold text-slate-800">
+    <section className="px-6 py-16">
+      {/* Heading */}
+      <h2 className="mb-12 text-center text-2xl font-extrabold tracking-wide text-[#10265A] md:text-3xl">
         PRODUCT LIST
       </h2>
 
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-        {products.map((product) => (
-          <div
-            key={product.id}
-            className="mx-auto w-64 rounded-lg border bg-white p-5 shadow-md transition hover:shadow-lg"
+      {/* Product grid */}
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {products.map((item) => (
+          <Link to={`/product/${item.id}`}>
+          <article
+            key={item.id}
+            className="flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition hover:shadow-lg"
           >
+
+            {/* Product image */}
             <img
-              src={product.image}
-              alt={product.name}
-              className="mx-auto h-28 object-contain"
+              src={`${BASE_URL}${item.image}`}
+              alt={item.product_name}
+              className="h-40 w-full object-contain p-6"
             />
 
-            <div className="mt-6">
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-bold">{product.name}</h3>
-                <span className="text-sm font-semibold">{product.price}</span>
+            {/* Details */}
+            <div className="flex flex-1 flex-col justify-between px-6 pb-6">
+              {/* Name + price */}
+              <div className="mb-1 flex items-start justify-between">
+                <p className="text-sm font-semibold text-gray-800">
+                  {item.product_name}
+                </p>
+                <p className="text-sm font-semibold text-gray-700">
+                  ${item.product_price}
+                </p>
               </div>
 
-              <div className="mt-2 flex items-center justify-between">
-                <p className="text-xs text-gray-600">{product.brand}</p>
+              {/* Brand */}
+              <p className="mb-4 text-xs font-medium uppercase tracking-wide text-gray-500">
+                {item.brand}
+              </p>
 
-                <Link to="/productDetails">
-                  <button className="rounded bg-blue-900 px-4 py-1 text-xs font-semibold text-white hover:bg-blue-800">
-                    BUY
-                  </button>
-                </Link>
-              </div>
+              {/* Buy button */}
+              <button className="self-end rounded bg-[#10265A] px-4 py-1.5 text-xs font-semibold tracking-wide text-white transition hover:bg-[#0b1d45]">
+                BUY
+              </button>
             </div>
-          </div>
+          </article>
+          </Link>
         ))}
       </div>
 
-      <div className="mt-12 text-center">
-        <button className="rounded bg-blue-900 px-8 py-3 text-sm font-semibold text-white hover:bg-blue-800">
+      {/* View-all CTA */}
+      <div className="mt-14 flex justify-center">
+        <a
+          href="/products"
+          className="rounded bg-[#10265A] px-8 py-2.5 text-sm font-semibold tracking-wide text-white transition hover:bg-[#0b1d45]"
+        >
           View all products
-        </button>
+        </a>
       </div>
     </section>
   );
