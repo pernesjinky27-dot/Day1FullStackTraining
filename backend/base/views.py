@@ -379,7 +379,7 @@ def create_xendit_payment(request):
             xendit_status=xendit_status,
         )
 
-        shippingsAddress.objects.create(
+        ShippingsAddress.objects.create(
             paymentId=payment,
             fullName = data['fullName'],
             address = data['address'],
