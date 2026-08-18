@@ -1,11 +1,12 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, use, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState( ()=> !!localStorage.getItem("access_token" ), );
-  
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    () => !!localStorage.getItem("access_token"),
+  );
   const [isLoading, setLoading] = useState(true);
   const location = useLocation();
 
@@ -18,7 +19,9 @@ export const AuthProvider = ({ children }) => {
   }, [location]);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, isLoading, setLoading }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, setIsAuthenticated, isLoading, setLoading }}
+    >
       {children}
     </AuthContext.Provider>
   );

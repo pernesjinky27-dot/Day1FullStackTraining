@@ -4,14 +4,13 @@ import { AuthContext } from "./AuthProvider";
 import Loading from "../components/Loading";
 
 export const PrivateRoute = ({ children }) => {
-    const { isAuthenticated, isLoading } = useContext(AuthContext);
+  const { isAuthenticated, isLoading } = useContext(AuthContext);
 
-    if(isLoading)
-        return (
-            <div>
-                <Loading />
-            </div>
-    )
-    return isAuthenticated ? children : <Navigate to = "/login" />;
-
+  if (isLoading)
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
+  return isAuthenticated ? children : <Navigate to="/login" />;
 };
