@@ -22,7 +22,7 @@ export default function Login() {
       });
       setIsAuthenticated(true);
       localStorage.setItem("access_token", response.data.access);
-      localStorage.setItem("refresh_roken", response.data.refresh);
+      localStorage.setItem("refresh_token", response.data.refresh);
 
       nav("/profile", { replace: true });
     } catch (err) {
