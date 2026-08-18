@@ -13,6 +13,7 @@ import Profile from "./pages/Profile.jsx";
 import { AuthProvider } from "./context/AuthProvider.jsx";
 import { PrivateRoute } from "./context/PrivateRoute.jsx";
 import Cart from "./components/Cart.jsx";
+import Checkout from "./pages/Checkout.jsx";
 
 function App() {
   return (
@@ -40,6 +41,15 @@ function App() {
               element={
                 <PrivateRoute>
                   <Cart />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="/checkout"
+              element={
+                <PrivateRoute>
+                  <Checkout />
                 </PrivateRoute>
               }
             />

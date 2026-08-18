@@ -274,7 +274,7 @@ from decimal import Decimal
 from django.conf import settings
 from django.db import transaction
 import requests
-from .models import paymentMethod, shippingsAddress
+from .models import paymentMethod, ShippingAddress
 from .serializers import CheckoutSerializer
 
 @api_view(['POST'])
@@ -485,7 +485,7 @@ def xendit_webhook(request):
         )
 
 
-from .serializers import PaymentMethodSerializer
+from .serializers import paymentMethodSerializer
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def list_user_orders(request):
@@ -496,7 +496,7 @@ def list_user_orders(request):
         .prefetch_related('orderitem_set__product')
     )
 
-    serializer = PaymentMethodSerializer(
+    serializer = paymentMethodSerializer(
         payments,
         many=True,
         context={'request': request}
